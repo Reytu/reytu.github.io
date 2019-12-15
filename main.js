@@ -69,10 +69,16 @@ function edit() {
 function remove() {
     let x = this.parentNode.parentNode.rowIndex;
     let table = document.getElementById("table1");
-    table.deleteRow(x);
-    localStorage.removeItem(x - 1);
+    let id = table.rows[x].id;
+    for (let i of Object.entries(localStorage)) {
+        let key = i[0];
+        if (id == "row-" + key) {
+            document.getElementById(id).remove();
+            localStorage.removeItem(key);
+    };
     if (localStorage.length == 0) {
         table.parentElement.removeChild(table);
+    };
     };
 };
 
@@ -97,26 +103,27 @@ function generateTableHead(table, data) {
 function generateTable(table) {
     for (let i = 0; i < localStorage.length; i++) {
         let row = table.insertRow();
+        row.id = "row-"+ i;
         for (let j = 0; j < 5; j++) {
             let cell = row.insertCell();
             if (j === 1) {
                 var text = document.createTextNode(new Date(localStorage.getItem(i).split(",")[j]).toLocaleString("en-GB").substring(10, 0));
             }
             else if (j === 3) {
-                text = new Image(20, 20)
-                text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1460699381574330920-512.png"
-                text.alt = "Edit"
-                text.className = "edit"
-                text.id = i
-                text.addEventListener("click", edit, false)
+                text = new Image(20, 20);
+                text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1460699381574330920-512.png";
+                text.alt = "Edit";
+                text.className = "edit";
+                text.id = "edit-" + i;
+                text.addEventListener("click", edit, false);
             }
             else if (j == 4) {
-                text = new Image(22, 22)
-                text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/21269369161530177266-512.png"
-                text.alt = "Remove"
-                text.className = "remove"
-                text.id = i
-                text.addEventListener("click", remove, false)
+                text = new Image(22, 22);
+                text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/21269369161530177266-512.png";
+                text.alt = "Remove";
+                text.className = "remove";
+                text.id = "remove-" + i;
+                text.addEventListener("click", remove, false);
             }
             else {
                 text = document.createTextNode(localStorage.getItem(i).split(",")[j]);
@@ -133,7 +140,7 @@ function table() {
         generateTableHead(table, data);
     };
     generateTable(table);
-}
+};
 
 checkStorage();
 buttons();

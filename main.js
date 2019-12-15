@@ -111,7 +111,7 @@ function generateTable(table) {
             }
             else if (j === 3) {
                 text = new Image(20, 20);
-                text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1460699381574330920-512.png";
+                text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1460699381574330920-64.png";
                 text.alt = "Edit";
                 text.className = "edit";
                 text.id = "edit-" + i;
@@ -119,7 +119,7 @@ function generateTable(table) {
             }
             else if (j == 4) {
                 text = new Image(22, 22);
-                text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/21269369161530177266-512.png";
+                text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/21269369161530177266-64.png";
                 text.alt = "Remove";
                 text.className = "remove";
                 text.id = "remove-" + i;

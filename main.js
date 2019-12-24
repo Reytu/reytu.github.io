@@ -63,7 +63,6 @@ function clear() {
 };
 
 function edit() {
-    alert("You really think this works yet? ...fuckin dumbass");
 };
 
 function remove() {

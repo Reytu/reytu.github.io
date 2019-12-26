@@ -63,6 +63,37 @@ function clear() {
 };
 
 function edit() {
+    let x = this.parentNode.parentNode.rowIndex;
+    let table = document.getElementById("table1");
+    let rowid = table.rows[x].id;
+    let key = rowid.split("-")[1]
+    function showModal() {
+        let modal = document.querySelector(".modal");
+        let closeBtn = document.querySelector(".close-btn");
+        modal.style.display = "block";
+        closeBtn.addEventListener("click", function() {modal.style.display = "none"}, false);
+        window.onclick = function(e){
+            if(e.target == modal){
+              modal.style.display = "none"
+            };
+        };
+    };
+    function confirmEdit() {
+        let name = document.getElementById("editName").value;
+        let date = document.getElementById("editDate").value;
+        if (name.length == 0 || date.length == 0) {
+
+        }
+        else {
+            date = date.split("-").map(numStr => parseInt(numStr));
+            var newDate = new Date(date[0], date[1] - 1, date[2]);
+        };
+        localStorage[key] = [name, newDate, getDelta(newDate)]
+    };
+    showModal();
+    const confirm = document.getElementById("confirm");
+    confirm.addEventListener("click", confirmEdit, false)
+
 };
 
 function remove() {
@@ -105,8 +136,15 @@ function generateTable(table) {
         row.id = "row-"+ i;
         for (let j = 0; j < 5; j++) {
             let cell = row.insertCell();
-            if (j === 1) {
+            if (j === 0) {
+                text = document.createTextNode(localStorage.getItem(i).split(",")[j]);
+            }
+            else if (j === 1) {
                 var text = document.createTextNode(new Date(localStorage.getItem(i).split(",")[j]).toLocaleString("en-GB").substring(10, 0));
+            }
+            else if (j === 2) {
+                text = document.createTextNode(localStorage.getItem(i).split(",")[j]);
+                cell.className = "delta"
             }
             else if (j === 3) {
                 text = new Image(20, 20);

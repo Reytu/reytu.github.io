@@ -127,27 +127,37 @@ function generateTableHead(table, data) {
         let text = document.createTextNode(element);
         th.appendChild(text);
         row.appendChild(th);
+        if (element == "Days until birthday") {
+            th.className = "delta";
+        };
     };
 };
 
 function generateTable(table) {
-    for (let i = 0; i < localStorage.length; i++) {
+    let keys = []
+    for (let i of Object.entries(localStorage)) {
+        let key = i[0];
+        keys.push(key)
+    };
+    keys.sort()
+    console.log(keys)
+    for (let i = 0; i < keys.length; i++) {
         let row = table.insertRow();
         row.id = "row-"+ i;
         for (let j = 0; j < 5; j++) {
             let cell = row.insertCell();
             if (j === 0) {
-                text = document.createTextNode(localStorage.getItem(i).split(",")[j]);
+                text = document.createTextNode(localStorage.getItem(keys[i]).split(",")[0]);
             }
             else if (j === 1) {
-                var text = document.createTextNode(new Date(localStorage.getItem(i).split(",")[j]).toLocaleString("en-GB").substring(10, 0));
+                var text = document.createTextNode(new Date(localStorage.getItem(keys[i]).split(",")[j]).toLocaleString("en-GB").substring(10, 0));
             }
             else if (j === 2) {
-                text = document.createTextNode(localStorage.getItem(i).split(",")[j]);
+                text = document.createTextNode(localStorage.getItem(keys[i]).split(",")[j]);
                 cell.className = "delta"
             }
             else if (j === 3) {
-                text = new Image(20, 20);
+                text = new Image();
                 text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1460699381574330920-64.png";
                 text.alt = "Edit";
                 text.className = "edit";
@@ -155,7 +165,7 @@ function generateTable(table) {
                 text.addEventListener("click", edit, false);
             }
             else if (j == 4) {
-                text = new Image(22, 22);
+                text = new Image();
                 text.src = "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/21269369161530177266-64.png";
                 text.alt = "Remove";
                 text.className = "remove";
@@ -163,9 +173,10 @@ function generateTable(table) {
                 text.addEventListener("click", remove, false);
             }
             else {
-                text = document.createTextNode(localStorage.getItem(i).split(",")[j]);
+                text = document.createTextNode(localStorage.getItem(keys[i]).split(",")[j]);
             };
             cell.appendChild(text);
+
         };
     };
 };

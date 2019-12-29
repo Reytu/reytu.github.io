@@ -32,6 +32,7 @@ header{
 
 #main-form {
     display: inline-block;
+    margin-left: 400px;
 }
 
 #table table{
@@ -43,8 +44,15 @@ header{
     line-height: 1.6em;
 }
 
-#table .delta {
-    text-align: center;
+#table th {
+    padding-right: 200px;
+    border-bottom: 3px black solid;
+
+}
+
+#table img {
+    width: 50%;
+    margin-left: 20%;
 }
 
 footer {
@@ -92,4 +100,3 @@ footer {
     from {top:-300px; opacity:0}
     to {top:0; opacity:1}
 }
-

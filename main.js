@@ -148,7 +148,7 @@
             keys.push(key);
         }
         keys.sort();
-        console.log(keys);
+        console.log("KEYS", keys);
         for (let i = 0; i < keys.length; i++) {
             let row = table.insertRow();
             row.id = "row-" + i;
@@ -166,8 +166,13 @@
                     );
                 } else if (j === 2) {
                     text = document.createTextNode(
-                        localStorage.getItem(keys[i]).split(",")[j]
+                        getDelta(
+                            new Date(
+                                localStorage.getItem(keys[i]).split(",")[1]
+                            )
+                        )
                     );
+
                     cell.className = "delta";
                 } else if (j === 3) {
                     text = new Image();
